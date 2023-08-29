@@ -1,0 +1,8 @@
+[submodule "documentation"]
+	path = documentation
+	url = git@github.com:Peiyang-Aeromodelling-Association/documentation.git
+	branch = gh-pages
+[submodule "visual_framework"]
+	path = visual_framework
+	url = git@github.com:Peiyang-Aeromodelling-Association/visual_framework.git
+	branch = gh-pages
