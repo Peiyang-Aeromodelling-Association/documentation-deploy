@@ -6,3 +6,11 @@
 	path = visual_framework
 	url = git@github.com:Peiyang-Aeromodelling-Association/visual_framework.git
 	branch = gh-pages
+[submodule "localization_framework"]
+	path = localization_framework
+	url = git@github.com:Peiyang-Aeromodelling-Association/localization_framework.git
+	branch = gh-pages
+[submodule "decision_framework"]
+	path = decision_framework
+	url = git@github.com:Peiyang-Aeromodelling-Association/decision_framework.git
+	branch = gh-pages
