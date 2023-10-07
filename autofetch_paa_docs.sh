@@ -30,7 +30,7 @@ fi
 cd $local_destination
 
 # git pull documentation-deploy
-GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git pull origin main:main
+GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git fetch origin main:main && git reset --hard main
 
 function pull_submodule {
   submodule_name=$1
@@ -38,7 +38,8 @@ function pull_submodule {
   if [ -d "$submodule_path" ]; then
     echo "Pulling $submodule_name"
     cd $submodule_path
-    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git pull origin gh-pages:gh-pages
+    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git fetch origin gh-pages:gh-pages && git reset --hard gh-pages
+    cd $local_destination  # return to local_destination
   else
     echo "Submodule $submodule_name not found in $local_destination"
     exit 1
