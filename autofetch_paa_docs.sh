@@ -1,11 +1,4 @@
 #!/usr/bin/bash
-###
- # @Date: 2023-08-31 13:26:29
- # @LastEditors: Lcf
- # @LastEditTime: 2023-10-07 21:06:01
- # @FilePath: \documentation-deploy\autofetch_paa_docs.sh
- # @Description: default
-### 
 
 # read key_dir from 1st argument
 key_dir=$1
@@ -45,7 +38,7 @@ function pull_submodule {
   if [ -d "$submodule_path" ]; then
     echo "Pulling $submodule_name"
     cd $submodule_path
-    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git fetch origin gh-pages:gh-pages && git reset --hard gh-pages
+    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git git fetch --depth 1 origin gh-pages:gh-pages && git reset --hard gh-pages
     cd $local_destination  # return to local_destination
   else
     echo "Submodule $submodule_name not found in $local_destination"
