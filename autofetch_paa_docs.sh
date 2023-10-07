@@ -30,7 +30,7 @@ fi
 cd $local_destination
 
 # git pull documentation-deploy
-GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git fetch origin main:main && git reset --hard main
+GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git pull origin main:main --force
 
 function pull_submodule {
   submodule_name=$1
