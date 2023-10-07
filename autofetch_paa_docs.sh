@@ -4,7 +4,7 @@
 repo_url=git@github.com:Peiyang-Aeromodelling-Association/documentation-deploy.git
 
 # Set the local destination for the repository
-local_destination=/home/lcf/paa_docs
+local_destination=~/paa_docs
 
 # Clone the repository if it doesn't already exist
 if [ ! -d "$local_destination" ]; then
