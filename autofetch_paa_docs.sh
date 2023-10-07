@@ -8,7 +8,7 @@ function load_key {
   key_name=$1
   key_path=$key_dir/$key_name
   if [ -f "$key_path" ]; then
-    cat $key_path
+    echo $key_path
   else
     echo "Key $key_name not found in $key_dir"
     exit 1
@@ -37,6 +37,7 @@ function pull_submodule {
   submodule_path=$local_destination/$submodule_name
   if [ -d "$submodule_path" ]; then
     echo "Pulling $submodule_name"
+    cd $submodule_path
     GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git pull origin gh-pages:gh-pages
   else
     echo "Submodule $submodule_name not found in $local_destination"
@@ -47,5 +48,10 @@ function pull_submodule {
 # list all submodules, for each submodule, set ssh key and pull, ssh key is the repo name
 submodule_names=$(git submodule | awk '{print $2}')
 for submodule_name in $submodule_names; do
+  # if submodule is not initialized (.git not exist), init it
+  if [ ! -d "$local_destination/$submodule_name/.git" ]; then
+    echo "Cloning $submodule_name"
+    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git submodule update --init $submodule_name
+  fi
   pull_submodule $submodule_name
 done
