@@ -1,4 +1,11 @@
 #!/usr/bin/bash
+###
+ # @Date: 2023-08-31 13:26:29
+ # @LastEditors: Lcf
+ # @LastEditTime: 2023-10-07 21:06:01
+ # @FilePath: \documentation-deploy\autofetch_paa_docs.sh
+ # @Description: default
+### 
 
 # read key_dir from 1st argument
 key_dir=$1
@@ -19,10 +26,10 @@ function load_key {
 repo_url=git@github.com:Peiyang-Aeromodelling-Association/documentation-deploy.git
 
 # Set the local destination for the repository
-local_destination=~/documentation-deploy
+local_destination=/documentation-deploy
 
-# Clone the repository if it doesn't already exist
-if [ ! -d "$local_destination" ]; then
+# Clone the repository if it doesn't already exist (.git doesn't exist)
+if [ ! -d "$local_destination/.git" ]; then
   GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git clone $repo_url $local_destination
 fi
 
