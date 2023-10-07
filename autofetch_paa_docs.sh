@@ -38,7 +38,7 @@ function pull_submodule {
   if [ -d "$submodule_path" ]; then
     echo "Pulling $submodule_name"
     cd $submodule_path
-    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git fetch --depth 1 origin gh-pages:gh-pages && git reset --hard gh-pages
+    GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git fetch --depth 1 origin gh-pages && git reset --hard origin/gh-pages
     cd $local_destination  # return to local_destination
   else
     echo "Submodule $submodule_name not found in $local_destination"
