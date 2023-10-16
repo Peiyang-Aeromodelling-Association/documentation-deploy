@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 
-# read key_dir from 1st argument, local dest from 2nd argument
+# read key_dir from 1st argument
 key_dir=$1
-local_destination=$2
 
 # function load_key: load ssh key from key_dir via repo name, return content of the key
 function load_key {
@@ -18,6 +17,9 @@ function load_key {
 
 # Set the repository URL
 repo_url=git@github.com:Peiyang-Aeromodelling-Association/documentation-deploy.git
+
+# Set the local destination for the repository
+local_destination=/documentation-deploy
 
 # Clone the repository if it doesn't already exist (.git doesn't exist)
 if [ ! -d "$local_destination/.git" ]; then
@@ -48,13 +50,9 @@ function pull_submodule {
 submodule_names=$(git submodule | awk '{print $2}')
 for submodule_name in $submodule_names; do
   # if submodule is not initialized (.git not exist), init it
-  if [ ! -e "$local_destination/$submodule_name/.git" ]; then
+  if [ ! -d "$local_destination/$submodule_name/.git" ]; then
     echo "Cloning $submodule_name"
     GIT_SSH_COMMAND="ssh -i $(load_key $submodule_name)" git submodule update --init $submodule_name
   fi
   pull_submodule $submodule_name
 done
-
-# commit and push changes
-echo "Updating remote"
-git add . && git commit -am"update" && GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git push origin main
