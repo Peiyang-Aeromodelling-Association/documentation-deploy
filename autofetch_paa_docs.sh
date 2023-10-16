@@ -54,3 +54,7 @@ for submodule_name in $submodule_names; do
   fi
   pull_submodule $submodule_name
 done
+
+# commit and push changes
+echo "Updating remote"
+git add . && git commit -am"update" && GIT_SSH_COMMAND="ssh -i $(load_key documentation-deploy)" git push origin main
